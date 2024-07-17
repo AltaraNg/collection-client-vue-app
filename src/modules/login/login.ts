@@ -2,14 +2,17 @@ import {Component, Vue} from 'vue-facing-decorator';
 
 import Input from '@/components/input/input.vue';
 import {useToast} from 'vue-toastification';
-import {Button, Checkbox} from '@profabric/vue-components';
-import {loginWithEmail, signInByGoogle} from '@/services/auth';
+import {Button, Checkbox, Image} from '@profabric/vue-components';
+import {loginWithEmail} from '@/services/auth';
+import Auth from '@/utilities/auth';
 
 @Component({
     components: {
         'app-input': Input,
         'pf-checkbox': Checkbox,
-        'pf-button': Button
+        'pf-button': Button,
+        'pf-image': Image
+
     }
 })
 export default class Login extends Vue {
@@ -34,30 +37,22 @@ export default class Login extends Vue {
     public async loginByAuth(): Promise<void> {
         try {
             this.isAuthLoading = true;
-            const {user} = await loginWithEmail(this.email, this.password);
-            this.$store.dispatch('auth/setCurrentUser', user);
+            const user = await loginWithEmail(this.email, this.password);
+            localStorage.setItem('user', JSON.stringify(user.data))
+            this.$store.dispatch('auth/setCurrentUser', JSON.stringify(user.data));
             this.toast.success('Login succeeded');
+        Auth.initialize();
+
             this.isAuthLoading = false;
             this.$router.replace('/');
         } catch (error: any) {
+            console.log(error)
             this.toast.error(error.message);
             this.isAuthLoading = false;
         }
     }
 
-    public async loginByGoogle(): Promise<void> {
-        try {
-            this.isGoogleLoading = true;
-            const {user} = await signInByGoogle();
-            this.$store.dispatch('auth/setCurrentUser', user);
-            this.toast.success('Login succeeded');
-            this.isGoogleLoading = false;
-            this.$router.replace('/');
-        } catch (error: any) {
-            this.toast.error(error.message);
-            this.isGoogleLoading = false;
-        }
-    }
+   
 
     public async loginByFacebook(): Promise<void> {
         try {

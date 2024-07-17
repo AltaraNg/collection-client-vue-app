@@ -3,8 +3,15 @@
     <div class="card card-outline card-primary">
         <div class="card-header text-center">
             <router-link to="/" class="h1"
-                ><b>{{ $t("labels.admin") }}</b>{{ $t("labels.lte")
-                }}</router-link
+                > <pf-image
+                src="assets/img/altara_logo.png"
+                alt="Altara Logo"
+                class="brand-image"
+                height="55"
+                width="200"
+                style="opacity: 0.8"
+            ></pf-image>
+                </router-link
             >
         </div>
         <div class="card-body">
@@ -46,6 +53,7 @@
                             :loading="isAuthLoading"
                             :disabled="isGoogleLoading"
                             @click="loginByAuth"
+                            variant="secondary"
                         >
                             {{ $t("labels.signIn") }}
                         </pf-button>
@@ -54,27 +62,7 @@
                 </div>
             </form>
 
-            <div class="social-auth-links text-center mt-2 mb-3">
-                <pf-button
-                    class="mb-2"
-                    variant="primary"
-                    :loading="isFacebookLoading"
-                    :disabled="true || isAuthLoading || isGoogleLoading"
-                    @click="loginByFacebook"
-                >
-                    <i class="fab fa-facebook mr-2"></i>
-                    <span>{{ $t("labels.signInUsingFB") }}</span>
-                </pf-button>
-                <pf-button
-                    variant="danger"
-                    :loading="isGoogleLoading"
-                    :disabled="isAuthLoading || isFacebookLoading"
-                    @click="loginByGoogle"
-                >
-                    <i class="fab fa-google mr-2"></i>
-                    <span>{{ $t("labels.signInUsingGoogle") }}</span>
-                </pf-button>
-            </div>
+           
             <!-- /.social-auth-links -->
 
             <p class="mb-1">
@@ -82,11 +70,7 @@
                     {{ $t("labels.forgotPassword") }}
                 </router-link>
             </p>
-            <p class="mb-0">
-                <router-link to="/register" class="text-center">
-                    {{ $t("labels.registerMembership") }}
-                </router-link>
-            </p>
+            
         </div>
         <!-- /.card-body -->
     </div>

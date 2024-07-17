@@ -22,6 +22,8 @@
         "mins": "mins",
         "hours": "hours",
         "days": "days",
+        "customers": "Customers",
+        "orders": "Orders",
         "friendRequests": "friend requests",
         "newReports": "new reports",
         "profile": "Profile",

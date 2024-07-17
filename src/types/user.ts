@@ -1,3 +1,3 @@
-import {User} from 'firebase/auth';
+import {User} from '@/interfaces/user';
 
 export type IUser = User;

@@ -4,7 +4,6 @@ import {Component, Vue, Watch} from 'vue-facing-decorator';
 import Header from './header/header.vue';
 import MenuSidebar from './menu-sidebar/menu-sidebar.vue';
 import ControlSidebar from './control-sidebar/control-sidebar.vue';
-import Footer from './footer/footer.vue';
 import {IUser} from '@/types/user';
 import {mapGetters} from 'vuex';
 
@@ -13,7 +12,6 @@ import {mapGetters} from 'vuex';
         'app-header': Header,
         'menu-sidebar': MenuSidebar,
         'control-sidebar': ControlSidebar,
-        'app-footer': Footer
     }
 })
 export default class Main extends Vue {

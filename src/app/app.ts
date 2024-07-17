@@ -1,8 +1,8 @@
 import {calculateWindowSize} from '@/utils/helpers';
 import {Component, Vue, Watch} from 'vue-facing-decorator';
 import {useWindowSize} from '@vueuse/core';
-import {onAuthStateChanged} from 'firebase/auth';
-import {firebaseAuth} from '@/firebase';
+import Auth from '@/utilities/auth'
+
 import {IUser} from '@/interfaces/user';
 
 @Component({})
@@ -12,30 +12,38 @@ export default class App extends Vue {
     async mounted() {
         await this.checkSession();
     }
+    async beforeCreate() {
+        Auth.initialize();
+    }
 
     get authentication(): IUser {
-        console.log(this.$store.getters);
         return this.$store.getters['auth/currentUser'];
     }
 
     async checkSession() {
-        this.isAppLoading = true;
-        onAuthStateChanged(
-            firebaseAuth,
-            (user) => {
-                if (user) {
-                    this.$store.dispatch('auth/setCurrentUser', user);
-                } else {
-                    this.$store.dispatch('auth/setCurrentUser', undefined);
-                }
-                this.isAppLoading = false;
-            },
-            (e) => {
-                console.log(e);
-                this.$store.dispatch('auth/setCurrentUser', undefined);
-                this.isAppLoading = false;
-            }
-        );
+        this.isAppLoading = false;
+        let user = localStorage.getItem('user');
+        if(user){
+            this.$store.dispatch('auth/setCurrentUser', JSON.parse(user))
+        }
+// let storedAuthentication = this.$store.getters['auth/currentUser'];
+
+        // onAuthStateChanged(
+        //     firebaseAuth,
+        //     (user) => {
+        //         if (user) {
+        //             this.$store.dispatch('auth/setCurrentUser', user);
+        //         } else {
+        //             this.$store.dispatch('auth/setCurrentUser', undefined);
+        //         }
+        //         this.isAppLoading = false;
+        //     },
+        //     (e) => {
+        //         console.log(e);
+        //         this.$store.dispatch('auth/setCurrentUser', undefined);
+        //         this.isAppLoading = false;
+        //     }
+        // );
     }
 
     @Watch('windowSize')

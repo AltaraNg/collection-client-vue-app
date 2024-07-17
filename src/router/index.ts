@@ -11,7 +11,8 @@ import ForgotPassword from '@/modules/forgot-password/forgot-password.vue';
 import RecoverPassword from '@/modules/recover-password/recover-password.vue';
 import SubMenu from '@/pages/main-menu/sub-menu/sub-menu.vue';
 import Blank from '@/pages/blank/blank.vue';
-import {firebaseAuth} from '@/firebase';
+import Customers from '@/pages/customers/customers.vue';
+import Orders from '@/pages/orders/orders.vue';
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -31,9 +32,17 @@ const routes: Array<RouteRecordRaw> = [
                 }
             },
             {
-                path: 'blank',
-                name: 'Blank',
-                component: Blank,
+                path: 'customers',
+                name: 'Customers',
+                component: Customers,
+                meta: {
+                    requiresAuth: true
+                }
+            },
+            {
+                path: 'orders',
+                name: 'Orders',
+                component: Orders,
                 meta: {
                     requiresAuth: true
                 }
@@ -109,6 +118,7 @@ router.beforeEach(async (to, from, next) => {
     if (!storedAuthentication) {
         try {
             storedAuthentication = await checkSession();
+            console.log(storedAuthentication)
             store.dispatch('auth/setCurrentUser', storedAuthentication);
         } catch (error) {
             console.error('Error checking session:', error);
@@ -130,9 +140,10 @@ export default router;
 
 export async function checkSession() {
     try {
-        await firebaseAuth.authStateReady();
-        return firebaseAuth.currentUser;
+        let user = localStorage.getItem('user');
+        return JSON.parse(user);
     } catch (error: any) {
+        console.log(error)
         return;
     }
 }

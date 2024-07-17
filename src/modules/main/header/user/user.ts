@@ -1,7 +1,6 @@
 import {Component, Vue} from 'vue-facing-decorator';
 import {DateTime} from 'luxon';
 import {Dropdown, Image} from '@profabric/vue-components';
-import {firebaseAuth} from '@/firebase';
 
 @Component({
     name: 'user-dropdown',
@@ -17,7 +16,7 @@ export default class User extends Vue {
 
     async logout() {
         try {
-            await firebaseAuth.signOut();
+            localStorage.removeItem('user')
             this.$store.dispatch('auth/setCurrentUser', undefined);
             this.$router.replace('/login');
         } catch (error) {

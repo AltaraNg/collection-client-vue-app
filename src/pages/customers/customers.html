@@ -1,0 +1,128 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Customers</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active">Customers</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <!-- Default box -->
+    <app-loading v-if="loading">Loading</app-loading>
+    <div class="container-fluid" v-else>
+        <div class="mx-1 mb-3 p-3 card">
+            <h6>Filters</h6>
+            <div class="d-flex">
+                <div>
+                    <label>Name </label>
+                    <app-input
+                        type="'text'"
+                        class="mb-1 mr-2"
+                        placeholder="Name"
+                        autocomplete="off"
+                        v-model="name"
+                    ></app-input>
+                </div>
+
+                <div>
+                    <label>Phone</label>
+
+                    <app-input
+                        type="'text'"
+                        class="mb-1 mx-2"
+                        placeholder="phone"
+                        autocomplete="off"
+                        v-model="telephone"
+                    ></app-input>
+                </div>
+
+                <div class="mx-2">
+                    <label>Customer ID</label>
+
+                    <app-input
+                        type="'text'"
+                        class="mb-1 mx-2"
+                        placeholder="ID"
+                        autocomplete="off"
+                        v-model="custom_customer_id"
+                    ></app-input>
+                </div>
+
+                <div>
+                    <label>Per Page</label>
+
+                    <app-input
+                        type="'text'"
+                        class="mb-1 ml-2"
+                        placeholder="Items per page"
+                        autocomplete="off"
+                        v-model="per_page"
+                    ></app-input>
+                </div>
+            </div>
+            <div class="text-right">
+                <pf-button
+                    type="submit"
+                    :loading="isAuthLoading"
+                    @click="filter"
+                    variant="secondary"
+                >
+                    Apply</pf-button
+                >
+                <pf-button
+                    type="submit"
+                    @click="reset"
+                    variant="warning"
+                    class="mx-2"
+                    :loading="isResetLoading"
+
+                >
+                    Reset</pf-button
+                >
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead class="thead-light">
+                    <tr class="table-light">
+                        <td>S/N</td>
+                        <td>First Name</td>
+                        <td>Last name</td>
+                        <td>Phone</td>
+                        <td>Email</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(customer, index) in customerList.data">
+                        <td>{{OId + index}}</td>
+                        <td>{{customer.first_name}}</td>
+                        <td>{{customer.last_name}}</td>
+                        <td>{{customer.telephone}}</td>
+
+                        <td>{{customer.email}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="mx-auto text-center w-100">
+                <pagination-component
+                    :paginationData="customerList"
+                    @fetchNext="fetchNext"
+                ></pagination-component>
+            </div>
+        </div>
+    </div>
+    <!-- /.card -->
+</section>
+<!-- /.content -->
