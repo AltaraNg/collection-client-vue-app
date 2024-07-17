@@ -6,13 +6,15 @@ import Pagination from '@/components/Pagination.vue';
 import Input from '@/components/input/input.vue';
 import {Button} from '@profabric/vue-components';
 import queryParam from '@/utilities/queryParams';
+import ZeroState from '@/pages/ZeroState.vue';
 
 @Component({
     components: {
         'app-input': Input,
         'app-loading': Loading,
         'pagination-component': Pagination,
-        'pf-button': Button
+        'pf-button': Button,
+        'zero-state': ZeroState
     }
 })
 class Orders extends Vue {
@@ -26,18 +28,23 @@ class Orders extends Vue {
     public isResetLoading: boolean = false;
     public custom_customer_id: string = '';
     OId: number = 1;
-    async fetchCustomers() {
+    async fetchOrders() {
         let query = this.$route.query;
         query.per_page = this.per_page.toString();
+        query.tenant = this.authentication.tenant.id
         try {
-            let res = await get(`/api/client/customers` + queryParam(query));
-            this.customerList = res.data.data.customers;
-            this.toast.success('Customers fetched successfully');
+            let res = await get(`/api/client/orders` + queryParam(query));
+            this.customerList = res.data.data.orders;
+            this.toast.success('Orders fetched successfully');
         } catch (error: any) {
             this.toast.error(error.message);
         } finally {
             this.loading = false;
         }
+    }
+
+    get authentication(): any {
+        return this.$store.getters['auth/currentUser'];
     }
 
     async fetchNext(item: any) {
@@ -53,7 +60,7 @@ class Orders extends Vue {
                 let res = await get(
                     `/api/client/customers` + queryParam(query)
                 );
-                this.customerList = res.data.data.customers;
+                this.customerList = res.data.data.orders;
                 this.$router.replace(this.$route.path + queryParam(query));
 
                 this.OId = this.per_page * item.label - this.per_page + 1;
@@ -84,7 +91,7 @@ class Orders extends Vue {
 
         try {
             let res = await get(`/api/client/customers` + queryParam(query));
-            this.customerList = res.data.data.customers;
+            this.customerList = res.data.data.orders;
             this.$router.replace(this.$route.path + queryParam(query));
             this.toast.success('Customers fetched successfully');
         } catch (error: any) {
@@ -97,13 +104,13 @@ class Orders extends Vue {
     async reset() {
         this.isResetLoading = true;
         this.per_page = 10;
-        await this.fetchCustomers();
+        await this.fetchOrders();
         this.$router.replace(this.$route.path);
         this.isResetLoading = false;
     }
 
     mounted() {
-        this.fetchCustomers();
+        this.fetchOrders();
     }
 }
 export default toNative(Orders);

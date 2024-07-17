@@ -6,13 +6,17 @@ import Pagination from '@/components/Pagination.vue';
 import Input from '@/components/input/input.vue';
 import {Button} from '@profabric/vue-components';
 import queryParam from '@/utilities/queryParams';
+import ZeroState from '@/pages/ZeroState.vue';
+
 
 @Component({
     components: {
         'app-input': Input,
         'app-loading': Loading,
         'pagination-component': Pagination,
-        'pf-button': Button
+        'pf-button': Button,
+        'zero-state': ZeroState
+
     }
 })
 class Customers extends Vue {

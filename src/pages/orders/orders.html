@@ -92,25 +92,28 @@
             </div>
         </div>
 
-        <div class="table-responsive">
+        <div v-if="customerList.data.length === 0">
+            <zero-state></zero-state>
+        </div>
+
+        <div v-else class="table-responsive">
             <table class="table table-striped">
                 <thead class="thead-light">
                     <tr class="table-light">
                         <td>S/N</td>
-                        <td>First Name</td>
-                        <td>Last name</td>
-                        <td>Phone</td>
-                        <td>Email</td>
+                        <td>Product</td>
+                        <td>Price</td>
+                        <td>Date Ordered</td>
+                        <td>Repayment</td>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(customer, index) in customerList.data">
+                    <tr v-for="(order, index) in customerList.data">
                         <td>{{OId + index}}</td>
-                        <td>{{customer.first_name}}</td>
-                        <td>{{customer.last_name}}</td>
-                        <td>{{customer.telephone}}</td>
-
-                        <td>{{customer.email}}</td>
+                        <td>{{order.bnpl_vendor_product.name}}</td>
+                        <td>{{order.bnpl_vendor_product.price}}</td>
+                        <td>{{order.order_date}}</td>
+                        <td>{{order.repayment}}</td>
                     </tr>
                 </tbody>
             </table>

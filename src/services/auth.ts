@@ -20,7 +20,7 @@ const provider = new GoogleAuthProvider();
 
 export const loginWithEmail = async (email: string, password: string) => {
     try {
-        const result = await post('/api/login', {staff_id: email, password})
+        const result = await post('/api/client/login', {email: email, password})
         return result;
     } catch (error) {
         throw error;

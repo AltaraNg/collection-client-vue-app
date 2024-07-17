@@ -13,6 +13,7 @@ import SubMenu from '@/pages/main-menu/sub-menu/sub-menu.vue';
 import Blank from '@/pages/blank/blank.vue';
 import Customers from '@/pages/customers/customers.vue';
 import Orders from '@/pages/orders/orders.vue';
+import NotFound from '@/pages/NotFound.vue'
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -85,6 +86,15 @@ const routes: Array<RouteRecordRaw> = [
         path: '/register',
         name: 'Register',
         component: Register,
+        meta: {
+            requiresUnauth: true
+        }
+    },
+
+    {
+        path: '/not-found',
+        name: 'NotFound',
+        component: NotFound,
         meta: {
             requiresUnauth: true
         }

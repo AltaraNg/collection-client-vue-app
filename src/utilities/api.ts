@@ -11,7 +11,7 @@ export const get = (url: string, params = {}) =>
         url,
         params: params,
         headers: {
-            Authorization: `Bearer ${Auth.state.user.api_token}`,
+            Authorization: `Bearer ${Auth?.state?.user?.api_token}`,
             'BNLP-ADMIN-ACCESS': import.meta.env.VITE_BNPL_ACCESS_KEY,
             'BNLP-ADMIN-ACCESS-AUTH-USER-ID': user_id
         }

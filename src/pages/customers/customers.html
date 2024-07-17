@@ -93,7 +93,11 @@
             </div>
         </div>
 
-        <div class="table-responsive">
+        <div v-if="customerList.data.length === 0">
+            <zero-state></zero-state>
+        </div>
+
+        <div class="table-responsive" v-else>
             <table class="table table-striped">
                 <thead class="thead-light">
                     <tr class="table-light">

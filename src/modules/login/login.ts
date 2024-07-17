@@ -12,7 +12,6 @@ import Auth from '@/utilities/auth';
         'pf-checkbox': Checkbox,
         'pf-button': Button,
         'pf-image': Image
-
     }
 })
 export default class Login extends Vue {
@@ -38,21 +37,19 @@ export default class Login extends Vue {
         try {
             this.isAuthLoading = true;
             const user = await loginWithEmail(this.email, this.password);
-            localStorage.setItem('user', JSON.stringify(user.data))
-            this.$store.dispatch('auth/setCurrentUser', JSON.stringify(user.data));
+            localStorage.setItem('user', JSON.stringify(user.data));
+            this.$store.dispatch('auth/setCurrentUser', user.data);
             this.toast.success('Login succeeded');
-        Auth.initialize();
+            Auth.initialize();
 
             this.isAuthLoading = false;
             this.$router.replace('/');
         } catch (error: any) {
-            console.log(error)
+            console.log(error);
             this.toast.error(error.message);
             this.isAuthLoading = false;
         }
     }
-
-   
 
     public async loginByFacebook(): Promise<void> {
         try {
