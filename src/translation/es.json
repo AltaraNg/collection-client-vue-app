@@ -1,6 +1,8 @@
 {
     "labels": {
         "signInToStart": "Sign in to start your session",
+        "verifyEmail": "Verify Email",
+
         "rememberMe": "Remember me",
         "signIn": "Sign In",
         "signInUsingFB": "Sign in using Facebook",

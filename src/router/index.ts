@@ -9,11 +9,13 @@ import Dashboard from '@/pages/dashboard/dashboard.vue';
 import Profile from '@/pages/profile/profile.vue';
 import ForgotPassword from '@/modules/forgot-password/forgot-password.vue';
 import RecoverPassword from '@/modules/recover-password/recover-password.vue';
+import VerifyMail from '@/modules/verify-mail/verify-mail.vue';
 import SubMenu from '@/pages/main-menu/sub-menu/sub-menu.vue';
 import Blank from '@/pages/blank/blank.vue';
 import Customers from '@/pages/customers/customers.vue';
 import Orders from '@/pages/orders/orders.vue';
-import NotFound from '@/pages/NotFound.vue'
+import NotFound from '@/pages/NotFound.vue';
+import {useToast} from 'vue-toastification';
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -92,7 +94,16 @@ const routes: Array<RouteRecordRaw> = [
     },
 
     {
-        path: '/not-found',
+        path: '/verify/email',
+        name: 'Verify',
+        component: VerifyMail,
+        meta: {
+            requiresUnauth: true
+        }
+    },
+
+    {
+        path: '/:pathMatch(.*)*',
         name: 'NotFound',
         component: NotFound,
         meta: {
@@ -123,27 +134,31 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
+    let toast = useToast();
+
     let storedAuthentication = store.getters['auth/currentUser'];
 
     if (!storedAuthentication) {
         try {
             storedAuthentication = await checkSession();
-            console.log(storedAuthentication)
-            store.dispatch('auth/setCurrentUser', storedAuthentication);
         } catch (error) {
             console.error('Error checking session:', error);
         }
     }
 
     if (to.meta.requiresAuth && !storedAuthentication) {
+        console.log('err 1');
+
         return next('/login');
     }
 
     if (to.meta.requiresUnauth && storedAuthentication) {
-        return next('/');
-    }
+        console.log('err 2');
 
-    return next();
+        return next('/');
+    } else {
+        next();
+    }
 });
 
 export default router;
@@ -153,7 +168,7 @@ export async function checkSession() {
         let user = localStorage.getItem('user');
         return JSON.parse(user);
     } catch (error: any) {
-        console.log(error)
+        console.log(error);
         return;
     }
 }

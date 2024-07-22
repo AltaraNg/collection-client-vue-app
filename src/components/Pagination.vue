@@ -1,5 +1,5 @@
 <template>
-    <div class="w-75 d-flex mx-auto text-center mb-4">
+    <div class="w-75 d-flex mx-auto text-center mb-4" v-if="paginationData.total > paginationData.per_page">
         <span>{{ }}</span>
         <span v-for="item in paginationData.links" class="mx-1 pointer px-2 border"
             :class="{ 'active': item.active }" @click="linkClick(item)">

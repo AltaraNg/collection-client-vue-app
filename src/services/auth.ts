@@ -1,6 +1,6 @@
 import {firebaseAuth} from '@/firebase';
 import {createUserWithEmailAndPassword} from '@firebase/auth';
-import { post } from '@/utilities/api';
+import {get, post} from '@/utilities/api';
 import {GoogleAuthProvider} from 'firebase/auth';
 
 const provider = new GoogleAuthProvider();
@@ -20,12 +20,37 @@ const provider = new GoogleAuthProvider();
 
 export const loginWithEmail = async (email: string, password: string) => {
     try {
-        const result = await post('/api/client/login', {email: email, password})
+        const result = await post('/api/client/login', {
+            email: email,
+            password
+        });
         return result;
     } catch (error) {
         throw error;
     }
 };
+
+export const verifyEmail = async (token: string) => {
+    try {
+        const result = await get('/api/verify/email/' + token);
+        return result;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const setPassword = async (password: string, confirmPassword: string, token: string) => {
+    try {
+        const result = await post('/api/client/set/password/via/email/token', {
+            token: token,
+            password: password,
+            password_confirmation: confirmPassword
+        });
+        return result;
+    } catch (error) {
+        throw error;
+    }
+}
 
 // export const signInByGoogle = async () => {
 //     try {

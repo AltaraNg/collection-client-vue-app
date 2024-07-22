@@ -50,11 +50,11 @@ export default class App extends Vue {
     async checkSession() {
         this.isAppLoading = false;
         let user = localStorage.getItem('user');
-        if (user) {
-            this.$store.dispatch('auth/setCurrentUser', JSON.parse(user));
-        } else {
-            this.$router.push('/login');
-        }
+        // if (user) {
+        //     this.$store.dispatch('auth/setCurrentUser', JSON.parse(user));
+        // } else {
+        //     this.$router.push('/login');
+        // }
         // let storedAuthentication = this.$store.getters['auth/currentUser'];
 
         // onAuthStateChanged(
