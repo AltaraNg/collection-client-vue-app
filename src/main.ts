@@ -10,6 +10,9 @@ import {FontAwesomeIcon} from '@fortawesome/vue-fontawesome';
 import Toast, {PluginOptions} from 'vue-toastification';
 import {ProfabricComponents} from '@profabric/vue-components';
 import VueGtag from 'vue-gtag';
+// @-tsignore
+
+
 
 import './index.scss';
 import {faEnvelope, faLock} from '@fortawesome/free-solid-svg-icons';

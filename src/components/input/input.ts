@@ -10,6 +10,7 @@ export default class Input extends Vue {
     @Prop() type: string;
     @Prop() placeholder: string;
     @Prop() autocomplete: string;
+    @Prop() disabled: boolean;
 
     public onValueChange(event: any) {
         this.$emit('update:modelValue', event.target.value);

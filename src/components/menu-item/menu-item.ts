@@ -52,4 +52,7 @@ export default class MenuItem extends Vue {
             this.isMenuExtended = false;
         }
     }
+    get tenantBankInfo() {
+        return this.$store.getters['tenant/tenant'];
+    }
 }

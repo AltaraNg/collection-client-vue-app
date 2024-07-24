@@ -50,6 +50,7 @@ export default class App extends Vue {
     async checkSession() {
         this.isAppLoading = false;
         let user = localStorage.getItem('user');
+        console.log(user)
         // if (user) {
         //     this.$store.dispatch('auth/setCurrentUser', JSON.parse(user));
         // } else {

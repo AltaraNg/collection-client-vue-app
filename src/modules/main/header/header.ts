@@ -37,4 +37,7 @@ export default class Header extends Vue {
     get navbarVariant() {
         return this.$store.getters['ui/navbarVariant'];
     }
+    get tenantBankInfo() {
+        return this.$store.getters['tenant/tenant'];
+    }
 }
