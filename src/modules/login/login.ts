@@ -52,7 +52,7 @@ export default class Login extends Vue {
             this.$router.replace('/');
         } catch (error: any) {
             console.log(error);
-            this.toast.error(error.message);
+            this.toast.error(error.response.data.message);
             this.isAuthLoading = false;
         }
     }
