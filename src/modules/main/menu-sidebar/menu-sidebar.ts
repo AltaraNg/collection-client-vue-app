@@ -29,19 +29,30 @@ export default class MenuSidebar extends Vue {
 
 export const MENU = [
     {
-        iconClass: "nav-icon fas fa-tachometer-alt",
+        iconClass: 'nav-icon fas fa-tachometer-alt',
         name: i18n.global.t('labels.dashboard'),
         path: '/'
     },
     {
-        iconClass: "nav-icon fas fa-users",        
+        iconClass: 'nav-icon fas fa-users',
         name: i18n.global.t('labels.customers'),
         path: '/customers'
     },
     {
-        iconClass: "nav-icon fas fa-landmark",
+        iconClass: 'nav-icon fas fa-landmark',
         name: i18n.global.t('labels.orders'),
         path: '/orders'
     },
-    
+
+    {
+        iconClass: 'nav-icon fas fa-money-bill-wave-alt',
+        name: 'Wallet',
+        path: '/wallet'
+    },
+
+    {
+        iconClass: 'nav-icon fas fa-shield-alt',
+        name: 'KYC',
+        path: '/kyc'
+    }
 ];

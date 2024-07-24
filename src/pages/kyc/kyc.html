@@ -1,0 +1,130 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h2>Verification</h2>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active">KYC</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <!-- Default box -->
+    <app-loading v-if="loading">Loading</app-loading>
+    <div v-else>
+        <div class="w-75 mx-auto" v-if="tenantBankInfo.bank_account === null">
+            <form action="">
+                <div class="row">
+                    <div class="col mb-3">
+                        <auto-complete
+                            :search="search"
+                            placeholder="Search for a bank"
+                            aria-label="Search for a bank"
+                            :get-result-value="getResultValue"
+                            @submit="getAccountInput"
+                        ></auto-complete>
+                    </div>
+                    <app-input
+                        class="mb-3 col py-2"
+                        type="text"
+                        placeholder="Account Number"
+                        autocomplete="off"
+                        v-model="accountNumber"
+                    />
+                </div>
+                <div class="">
+                    <pf-button
+                        class="w-25 float-right"
+                        type="submit"
+                        block="true"
+                        @click="verifyBank"
+                        :loading="isAuthLoading"
+                        :disabled="accountName"
+                    >
+                        Verify Account
+                    </pf-button>
+                </div>
+            </form>
+            <div class="clearfix"></div>
+
+            <form action="" v-if="accountName !== null" class="my-3">
+                <div class="row">
+                    <app-input
+                        class="mb-3 col"
+                        type="text"
+                        placeholder="Account Number"
+                        autocomplete="off"
+                        v-model="accountNumber"
+                        disabled="true"
+                    />
+                    <app-input
+                        class="mb-3 col"
+                        type="text"
+                        placeholder="Account Name"
+                        autocomplete="off"
+                        v-model="accountName"
+                        disabled="true"
+                    />
+                </div>
+                <div class="row">
+                    <app-input
+                        class="mb-3 col"
+                        type="text"
+                        placeholder="First Name"
+                        autocomplete="off"
+                        v-model="firstName"
+                    />
+                    <app-input
+                        class="mb-3 col"
+                        type="text"
+                        placeholder="Last Name"
+                        autocomplete="off"
+                        v-model="lastName"
+                    />
+                </div>
+                <div class="row">
+                    <app-input
+                        class="mb-3 col"
+                        type="phone"
+                        placeholder="Phone Number"
+                        autocomplete="off"
+                        v-model="telephone"
+                    />
+                    <app-input
+                        class="mb-3 col"
+                        type="text"
+                        placeholder="BVN"
+                        autocomplete="off"
+                        v-model="bvn"
+                    />
+                </div>
+                <div class="">
+                    <pf-button
+                        class="w-25 float-right"
+                        type="submit"
+                        block="true"
+                        @click="submitKyc"
+                        :loading="kycLoading"
+                    >
+                        Submit
+                    </pf-button>
+                </div>
+            </form>
+        </div>
+        <div v-else>
+            Already filled
+        </div>
+    </div>
+
+    <!-- /.card -->
+</section>
+<!-- /.content -->

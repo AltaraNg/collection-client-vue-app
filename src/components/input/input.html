@@ -6,6 +6,7 @@
         :value="modelValue"
         :autocomplete="autocomplete"
         @change="onValueChange($event)"
+        :disabled="disabled"
     />
     <div v-if="icon" class="input-group-append">
         <div class="input-group-text">

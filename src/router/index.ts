@@ -16,6 +16,8 @@ import Customers from '@/pages/customers/customers.vue';
 import Orders from '@/pages/orders/orders.vue';
 import NotFound from '@/pages/NotFound.vue';
 import {useToast} from 'vue-toastification';
+import Wallet from '@/pages/wallet/wallet.vue';
+import kyc from '@/pages/kyc/kyc.vue';
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -46,6 +48,22 @@ const routes: Array<RouteRecordRaw> = [
                 path: 'orders',
                 name: 'Orders',
                 component: Orders,
+                meta: {
+                    requiresAuth: true
+                }
+            },
+            {
+                path: 'wallet',
+                name: 'wallet',
+                component: Wallet,
+                meta: {
+                    requiresAuth: true
+                }
+            },
+            {
+                path: 'kyc',
+                name: 'kyc',
+                component: kyc,
                 meta: {
                     requiresAuth: true
                 }
@@ -153,7 +171,7 @@ router.beforeEach(async (to, from, next) => {
     }
 
     if (to.meta.requiresUnauth && storedAuthentication) {
-        console.log('err 2');
+        console.log('err 2', storedAuthentication);
 
         return next('/');
     } else {

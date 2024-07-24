@@ -1,3 +1,4 @@
+import { ITenant } from '@/types/tenant';
 import {IUser} from '@/types/user';
 
 export interface IAuthState {
@@ -10,4 +11,16 @@ export interface IAuthModule {
     mutations: any;
     actions: any;
     getters: any;
+}
+
+export interface ITenantModule {
+    namespaced: boolean;
+    state: ITenantState;
+    mutations: any;
+    actions: any;
+    getters: any;
+}
+
+export interface ITenantState {
+    tenant?: ITenant | null;
 }

@@ -1,4 +1,4 @@
-<li v-if="menuItem" class="nav-item" :class="{'menu-open': isMenuExtended}">
+<li v-if="menuItem" class="nav-item" :class="{'menu-open': isMenuExtended, 'disabled': menuItem.name === 'Wallet' && tenantBankInfo.bank_account === null}">
     <a
         class="nav-link"
         :class="{'active': isMainActive || isOneOfChildrenActive}"
@@ -11,7 +11,7 @@
         </p>
     </a>
     <ul class="nav nav-treeview" v-for="item in menuItem.children">
-        <li class="nav-item">
+        <li class="nav-item" >
             <router-link
                 :to="item.path"
                 class="nav-link"

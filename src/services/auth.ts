@@ -39,7 +39,11 @@ export const verifyEmail = async (token: string) => {
     }
 };
 
-export const setPassword = async (password: string, confirmPassword: string, token: string) => {
+export const setPassword = async (
+    password: string,
+    confirmPassword: string,
+    token: string
+) => {
     try {
         const result = await post('/api/client/set/password/via/email/token', {
             token: token,
@@ -50,7 +54,16 @@ export const setPassword = async (password: string, confirmPassword: string, tok
     } catch (error) {
         throw error;
     }
-}
+};
+
+export const authUser = async () => {
+    try {
+        const result = await get('/api/client/auth/user');
+        return result;
+    } catch (error) {
+        throw error;
+    }
+};
 
 // export const signInByGoogle = async () => {
 //     try {

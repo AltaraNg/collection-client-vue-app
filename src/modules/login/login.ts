@@ -3,7 +3,7 @@ import {Component, Vue} from 'vue-facing-decorator';
 import Input from '@/components/input/input.vue';
 import {useToast} from 'vue-toastification';
 import {Button, Checkbox, Image} from '@profabric/vue-components';
-import {loginWithEmail} from '@/services/auth';
+import {authUser, loginWithEmail} from '@/services/auth';
 import Auth from '@/utilities/auth';
 
 @Component({
@@ -41,6 +41,12 @@ export default class Login extends Vue {
             this.$store.dispatch('auth/setCurrentUser', user.data);
             this.toast.success('Login succeeded');
             Auth.initialize();
+
+            let res = await authUser();
+            let tenant = res.data.data['user '].tenant;
+            console.log(res);
+            localStorage.setItem('tenant', JSON.stringify(tenant));
+            this.$store.dispatch('tenant/setTenant', tenant);
 
             this.isAuthLoading = false;
             this.$router.replace('/');
