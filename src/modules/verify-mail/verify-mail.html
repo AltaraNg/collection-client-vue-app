@@ -36,7 +36,7 @@
 
                 <div>
                     <!-- /.col -->
-                    <div >
+                    <div>
                         <pf-button
                             type="submit"
                             :loading="loading"
@@ -54,10 +54,9 @@
         </div>
         <div v-else>
             <div class="container-fluid p-5">
-                <h3 class="text-center text-secondary">
-                    Error 404! There is something wrong with verification code.
-                    Please contact admin!!!
-                </h3>
+                <app-error
+                    :msg="'email verification failed due to ' + errorMsg "
+                ></app-error>
             </div>
         </div>
         <!-- /.card-body -->

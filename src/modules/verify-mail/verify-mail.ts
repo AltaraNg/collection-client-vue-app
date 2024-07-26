@@ -4,6 +4,7 @@ import {useToast} from 'vue-toastification';
 import {Button, Checkbox, Image} from '@profabric/vue-components';
 import {setPassword, verifyEmail} from '@/services/auth';
 import {getSupportedBanks} from '@/services/bank';
+import Error from '@/components/Error.vue';
 // import {registerWithEmail} from '@/services/auth';
 
 @Component({
@@ -11,13 +12,15 @@ import {getSupportedBanks} from '@/services/bank';
         'app-input': Input,
         'pf-checkbox': Checkbox,
         'pf-button': Button,
-        'pf-image': Image
+        'pf-image': Image,
+        'app-error': Error
     }
 })
 export default class VerifyMail extends Vue {
     private appElement: HTMLElement | null = null;
     verified = false;
     public password: string = '';
+    public errorMsg: string = '';
     public confirmPassword: string = '';
 
     public token: any = '';
@@ -77,7 +80,13 @@ export default class VerifyMail extends Vue {
             console.log(res);
             this.verified = true;
         } catch (error: any) {
-            this.toast.error(error.message);
+            if (error.code === 500) {
+                this.toast.error(error.message);
+                this.errorMsg = error.message;
+            } else {
+                console.log(error.response.data);
+                this.errorMsg = error.response.data.message;
+            }
             this.isAuthLoading = false;
         } finally {
             this.isAuthLoading = false;
