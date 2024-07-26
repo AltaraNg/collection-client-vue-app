@@ -65,6 +65,15 @@ export const authUser = async () => {
     }
 };
 
+export const fetchStats = async () => {
+    try {
+        const result = await get('/api/client/dashboard');
+        return result;
+    } catch (error) {
+        throw error;
+    }
+};
+
 // export const signInByGoogle = async () => {
 //     try {
 //         return await signInWithPopup(firebaseAuth, provider);

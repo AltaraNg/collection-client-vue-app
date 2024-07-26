@@ -1,7 +1,6 @@
 <!-- Content Header (Page header) -->
 <div class="content-header">
     <div class="container-fluid">
-       
         <div class="row mb-2">
             <div class="col-sm-6">
                 <h1 class="m-0">{{ $t("labels.dashboard") }}</h1>
@@ -29,17 +28,18 @@
 <section class="content">
     <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
-        <div class="row">
+        <app-loading v-if="loading || stats === null">Loading</app-loading>
+        <div class="row row-cols-5" v-else>
             <div class="col-lg-3 col-6">
                 <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>150</h3>
+                        <h5>{{stats.account_number}}</h5>
 
-                        <p>New Orders</p>
+                        <p>Account Number</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-bag"></i>
+                        <i class="ion ion-document"></i>
                     </div>
                     <router-link to="/" class="small-box-footer"
                         >More info <i class="fas fa-arrow-circle-right"></i
@@ -49,14 +49,14 @@
             <!-- ./col -->
             <div class="col-lg-3 col-6">
                 <!-- small box -->
-                <div class="small-box bg-success">
+                <div class="small-box bg-secondary">
                     <div class="inner">
-                        <h3>53<sup style="font-size: 20px">%</sup></h3>
+                        <h5>{{stats.countOfCustomers}}</h5>
 
-                        <p>Bounce Rate</p>
+                        <p>Customers</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-stats-bars"></i>
+                        <i class="ion ion-ios-people-outline"></i>
                     </div>
                     <router-link to="/" class="small-box-footer"
                         >More info <i class="fas fa-arrow-circle-right"></i
@@ -68,12 +68,12 @@
                 <!-- small box -->
                 <div class="small-box bg-warning">
                     <div class="inner">
-                        <h3>44</h3>
+                        <h5>{{stats.countOfOrders}}</h5>
 
-                        <p>User Registrations</p>
+                        <p>Orders</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-person-add"></i>
+                        <i class="ion ion-android-cart"></i>
                     </div>
                     <router-link to="/" class="small-box-footer"
                         >More info <i class="fas fa-arrow-circle-right"></i
@@ -83,14 +83,31 @@
             <!-- ./col -->
             <div class="col-lg-3 col-6">
                 <!-- small box -->
-                <div class="small-box bg-danger">
+                <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>65</h3>
+                        <h5>{{amountCollected}}</h5>
 
-                        <p>Unique Visitors</p>
+                        <p>Amount Collected</p>
                     </div>
                     <div class="icon">
-                        <i class="ion ion-pie-graph"></i>
+                        <i class="ion ion-cash"></i>
+                    </div>
+                    <router-link to="/" class="small-box-footer"
+                        >More info <i class="fas fa-arrow-circle-right"></i
+                    ></router-link>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-6">
+                <!-- small box -->
+                <div class="small-box bg-danger">
+                    <div class="inner">
+                        <h5>{{amountOwed}}</h5>
+
+                        <p>Amount Owed</p>
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-ios-analytics"></i>
                     </div>
                     <router-link to="/" class="small-box-footer"
                         >More info <i class="fas fa-arrow-circle-right"></i

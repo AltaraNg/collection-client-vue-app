@@ -17,6 +17,8 @@ export default class User extends Vue {
     async logout() {
         try {
             localStorage.removeItem('user');
+            localStorage.removeItem('tenant');
+
             this.$store.dispatch('auth/setCurrentUser', undefined);
             this.$store.dispatch('tenant/setTenant', undefined);
 

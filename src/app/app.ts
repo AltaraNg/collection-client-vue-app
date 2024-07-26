@@ -50,7 +50,7 @@ export default class App extends Vue {
     async checkSession() {
         this.isAppLoading = false;
         let user = localStorage.getItem('user');
-        console.log(user)
+        console.log(user);
         // if (user) {
         //     this.$store.dispatch('auth/setCurrentUser', JSON.parse(user));
         // } else {
@@ -105,6 +105,8 @@ export default class App extends Vue {
         interceptors((err: any) => {
             if (err.response.status === 401) {
                 Auth.remove();
+                this.$store.dispatch('auth/setCurrentUser', undefined);
+                this.$store.dispatch('tenant/setTenant', undefined);
                 this.$router.push('/login');
             }
             if (err.response.status === 500)
