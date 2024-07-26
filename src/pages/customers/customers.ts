@@ -100,9 +100,10 @@ class Customers extends Vue {
 
     async reset() {
         this.isResetLoading = true;
+        this.$router.replace(this.$route.path);
+
         this.per_page = 10;
         await this.fetchCustomers();
-        this.$router.replace(this.$route.path);
         this.isResetLoading = false;
     }
 

@@ -25,37 +25,37 @@
             <h6>Filters</h6>
             <div class="d-flex">
                 <div>
-                    <label>Name </label>
+                    <label>Customer ID </label>
                     <app-input
                         type="'text'"
                         class="mb-1 mr-2"
-                        placeholder="Name"
+                        placeholder="Customer ID"
                         autocomplete="off"
-                        v-model="name"
+                        v-model="custom_customer_id"
                     ></app-input>
                 </div>
 
                 <div>
-                    <label>Phone</label>
+                    <label>Order Number</label>
 
                     <app-input
                         type="'text'"
                         class="mb-1 mx-2"
-                        placeholder="phone"
+                        placeholder="Order Number"
                         autocomplete="off"
-                        v-model="telephone"
+                        v-model="custom_order_number"
                     ></app-input>
                 </div>
 
                 <div class="mx-2">
-                    <label>Customer ID</label>
+                    <label>From Date</label>
 
                     <app-input
-                        type="'text'"
+                        type="date"
                         class="mb-1 mx-2"
-                        placeholder="ID"
+                        placeholder="Date"
                         autocomplete="off"
-                        v-model="custom_customer_id"
+                        v-model="from_date"
                     ></app-input>
                 </div>
 
@@ -101,6 +101,7 @@
                 <thead class="thead-light">
                     <tr class="table-light">
                         <td>S/N</td>
+                        <td>Customer Name</td>
                         <td>Product</td>
                         <td>Price</td>
                         <td>Date Ordered</td>
@@ -110,10 +111,15 @@
                 <tbody>
                     <tr v-for="(order, index) in customerList.data">
                         <td>{{OId + index}}</td>
+                        <td>
+                            {{order.customer.first_name + ' ' +
+                            order.customer.last_name}}
+                        </td>
+
                         <td>{{order.bnpl_vendor_product.name}}</td>
-                        <td>{{order.bnpl_vendor_product.price}}</td>
+                        <td>{{formatCash(order.bnpl_vendor_product.price)}}</td>
                         <td>{{order.order_date}}</td>
-                        <td>{{order.repayment}}</td>
+                        <td>{{formatCash(order.repayment)}}</td>
                     </tr>
                 </tbody>
             </table>

@@ -7,6 +7,7 @@ import Input from '@/components/input/input.vue';
 import {Button} from '@profabric/vue-components';
 import queryParam from '@/utilities/queryParams';
 import ZeroState from '@/pages/ZeroState.vue';
+import {formatCurrency} from '@/utilities/globalFunctions';
 
 @Component({
     components: {
@@ -27,11 +28,14 @@ class Orders extends Vue {
     public isAuthLoading: boolean = false;
     public isResetLoading: boolean = false;
     public custom_customer_id: string = '';
+    public custom_order_number: string = '';
+    public from_date: string = '';
+
     OId: number = 1;
     async fetchOrders() {
         let query = this.$route.query;
         query.per_page = this.per_page.toString();
-        query.tenant = this.authentication.tenant.id
+        query.tenant = this.authentication.tenant.id;
         try {
             let res = await get(`/api/client/orders` + queryParam(query));
             this.customerList = res.data.data.orders;
@@ -76,24 +80,25 @@ class Orders extends Vue {
 
     async filter() {
         let query: {
-            name?: string;
-            telephone?: string;
+            from_date?: string;
             per_page?: number;
             custom_customer_id?: string;
+            custom_order_number?: string;
         } = {};
-        if (this.telephone) query.telephone = this.telephone;
-        if (this.name) query.name = this.name;
-        if (this.per_page) query.per_page = this.per_page;
+        if (this.from_date) query.from_date = this.from_date;
         if (this.custom_customer_id)
             query.custom_customer_id = this.custom_customer_id;
+        if (this.per_page) query.per_page = this.per_page;
+        if (this.custom_order_number)
+            query.custom_order_number = this.custom_order_number;
 
         this.isAuthLoading = true;
 
         try {
-            let res = await get(`/api/client/customers` + queryParam(query));
+            let res = await get(`/api/client/orders` + queryParam(query));
             this.customerList = res.data.data.orders;
             this.$router.replace(this.$route.path + queryParam(query));
-            this.toast.success('Customers fetched successfully');
+            this.toast.success('Orders fetched successfully');
         } catch (error: any) {
             this.toast.error(error.message);
         } finally {
@@ -111,6 +116,10 @@ class Orders extends Vue {
 
     mounted() {
         this.fetchOrders();
+    }
+
+    formatCash(amount: any) {
+        return formatCurrency(amount);
     }
 }
 export default toNative(Orders);
