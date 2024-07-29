@@ -6,7 +6,7 @@
                     <h3>
                         Oops!</h3>
 
-                    <div class="error-details my-2">
+                    <div class="error-details my-2 text-capitalize">
                         {{ msg }}
                     </div>
                     <div class="error-actions">

@@ -28,7 +28,9 @@
 <section class="content">
     <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
-        <app-loading v-if="loading || stats === null">Loading</app-loading>
+        <app-loading v-if="loading || stats === null" msg="Fetching Stats"
+            >Loading</app-loading
+        >
         <div class="row row-cols-5" v-else>
             <div class="col-lg-3 col-6">
                 <!-- small box -->

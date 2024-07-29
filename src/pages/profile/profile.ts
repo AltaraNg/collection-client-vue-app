@@ -9,9 +9,13 @@ import {Component, Vue} from 'vue-facing-decorator';
     }
 })
 export default class Profile extends Vue {
-    private activeTab = 'ACTIVITY';
+    private activeTab = 'SETTINGS';
 
     private setActiveTab(tab: string): void {
         this.activeTab = tab;
+    }
+
+    get tenantBankInfo() {
+        return this.$store.getters['tenant/tenant'];
     }
 }

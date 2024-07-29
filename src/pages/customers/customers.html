@@ -19,7 +19,7 @@
 <!-- Main content -->
 <section class="content">
     <!-- Default box -->
-    <app-loading v-if="loading">Loading</app-loading>
+    <app-loading v-if="loading" :msg="'fetching customers'">Loading</app-loading>
     <div class="container-fluid" v-else>
         <div class="mx-1 mb-3 p-3 card">
             <h3>Filters</h3>

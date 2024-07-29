@@ -5,6 +5,7 @@ import {Button, Checkbox, Image} from '@profabric/vue-components';
 import {setPassword, verifyEmail} from '@/services/auth';
 import {getSupportedBanks} from '@/services/bank';
 import Error from '@/components/Error.vue';
+import Loading from '@/components/Loading.vue';
 // import {registerWithEmail} from '@/services/auth';
 
 @Component({
@@ -13,7 +14,8 @@ import Error from '@/components/Error.vue';
         'pf-checkbox': Checkbox,
         'pf-button': Button,
         'pf-image': Image,
-        'app-error': Error
+        'app-error': Error,
+        'app-loading': Loading
     }
 })
 export default class VerifyMail extends Vue {
