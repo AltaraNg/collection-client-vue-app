@@ -1,4 +1,8 @@
-<li v-if="menuItem" class="nav-item" :class="{'menu-open': isMenuExtended, 'disabled': menuItem.name === 'Wallet' && tenantBankInfo.bank_account === null}">
+<li
+    v-if="menuItem"
+    class="nav-item"
+    :class="{'menu-open': isMenuExtended, 'disabled': menuItem.name === 'Wallet' && tenantBankInfo.bank_account === null}"
+>
     <a
         class="nav-link"
         :class="{'active': isMainActive || isOneOfChildrenActive}"
@@ -9,9 +13,20 @@
             {{ menuItem.name }}
             <i v-if="isExpandable" class="right fas fa-angle-left"></i>
         </p>
+        <span class="float-right" v-if="menuItem.name === 'KYC'">
+            <i
+                class="fas fa-check text-success"
+                v-if="tenantBankInfo.bank_account && tenantBankInfo.bank_account.kyc_status === 'verified'"
+            ></i>
+            <i
+                class="fas fa-hourglass-start text-warning"
+                v-else-if="tenantBankInfo.bank_account && tenantBankInfo.bank_account.kyc_status === 'verifying'"
+            ></i>
+            <i class="fas fa-shield-virus text-danger" v-else></i>
+        </span>
     </a>
     <ul class="nav nav-treeview" v-for="item in menuItem.children">
-        <li class="nav-item" >
+        <li class="nav-item">
             <router-link
                 :to="item.path"
                 class="nav-link"
